@@ -1,0 +1,47 @@
+/* Query 1 */
+SELECT  c.Country , sum(il.Quantity*il.UnitPrice) total 
+FROM Customer c
+JOIN Invoice i
+On i.CustomerId = c.CustomerId
+JOIN InvoiceLine il
+ON il.InvoiceId = i.InvoiceId
+JOIN Track t
+ON t.TrackId = il.TrackId
+JOIN Genre g 
+ON g.GenreId = t.GenreId
+WHERE g.Name like 'Rock'
+GROUP By 1
+ORDER BY 2 DESC
+
+
+/* Query 2 */
+SELECT ar.ArtistId , ar.Name , count(t.Name) songs
+FROM Artist ar
+JOIN Album a
+On a.ArtistId = ar.ArtistId
+JOIN Track t
+On t.AlbumId = a.AlbumId
+JOIN Genre g
+On g.GenreId = t.GenreId
+WHERE g.Name like 'Jazz'
+GROUP By ar.Name
+ORDER By 3 DESC
+
+
+/* Query 3 */
+SELECT m.Name , count(t.name) tracks
+FROM MediaType m
+JOIN Track t
+ON m.MediaTypeId = t.MediaTypeId
+GROUP BY m.Name
+ORDER BY 2
+
+
+/* Query 4 */
+SELECT sum(t.UnitPrice) , a.Title
+FROM Album a
+JOIN Track t
+ON t.AlbumId = a.AlbumId 
+GROUP By Title
+ORDER by 1 DESC
+LIMIT 10
